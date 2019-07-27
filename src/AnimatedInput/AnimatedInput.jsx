@@ -29,25 +29,16 @@ class AnimatedInput extends Component {
   render() {
     try {
       return (
-        <Wrapper>
-          <TextInput
+        <Wrapper style={this.props.style}>
+          <TextInput {...this.props}
            ref={this.inputRef}
-            type={this.props.type}
-            id="main-text-input"
-            minLength={this.props.minLength}
-            role={this.props.role}
-            maxLength={this.props.maxLength}
-            value={this.props.value}
+           style={{}}
             onFocus={this.ActivateField}
             onBlur={this.DisableField}
-            onChange={this.props.onChange}
-            autoComplete={this.props.autoComplete}
-            autoFocus={this.props.autoFocus}
-            spellCheck={this.props.spellCheck}
-            required={this.props.required}
+           
           />
           <PlaceHolder className={!this.state.fieldActivated? "" : "focused"} role="label" htmlFor="main-text-input">
-           {this.props.placeholder}
+           {this.props.placeholderName}
           </PlaceHolder>
         </Wrapper>
       )
@@ -82,7 +73,6 @@ const TextInput = styled.input`
   box-shadow: 0 0 black;
 `
 const Wrapper = styled.div`
-  padding-bottom: 24px;
   display: block;
   position: relative;
   box-sizing: border-box;
@@ -90,6 +80,7 @@ const Wrapper = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 `
+
 const PlaceHolder = styled.label`
   position: absolute;
   left: 0;
@@ -106,7 +97,7 @@ const PlaceHolder = styled.label`
   transition: top 0.3s, font-size 0.3s;
   transition-timing-function: cubic-bezier(0.02, 0.01, 0.47, 1);
   &.focused{
-    top: -22px;
+    top: -22px; 
     font-size:14px;
   }
 `
