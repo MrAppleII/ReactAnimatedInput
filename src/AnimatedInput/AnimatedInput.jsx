@@ -35,7 +35,7 @@ class AnimatedInput extends Component {
            style={{}}
             onFocus={this.ActivateField}
             onBlur={this.DisableField}
-           
+           focusedColor={this.props.activeBorderColor}
           />
           <PlaceHolder className={!this.state.fieldActivated? "" : "focused"} role="label" htmlFor="main-text-input">
            {this.props.placeholderName}
@@ -58,6 +58,10 @@ const TextInput = styled.input`
   margin: 0;
   border: none !important;
   border-bottom: 1px solid #e6e6e6 !important;
+  :focus{
+    border-bottom: 1px solid ${props => props.focusedColor ? props.focusedColor : "#e6e6e6"}  !important;
+  
+  }
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
   font-weight: 400;
