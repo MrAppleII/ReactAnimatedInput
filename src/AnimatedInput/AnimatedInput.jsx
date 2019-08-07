@@ -17,6 +17,7 @@ class AnimatedInput extends Component {
     this.setState({
         fieldActivated:true,
     })
+    this.props.onFocus()
   }
   DisableField = () =>{
       if(this.inputRef.current.value===""){
@@ -24,6 +25,7 @@ class AnimatedInput extends Component {
             fieldActivated:false,
         })
       }
+      this.props.onBlur()
    
   }
   render() {
@@ -152,6 +154,8 @@ AnimatedInput.defaultProps = {
    onChange: function(){},
    placeholder:"",
    errorMessage:"",
+   onFocus:function(){},
+   onBlur:function(){},
 }
 
 export default AnimatedInput
