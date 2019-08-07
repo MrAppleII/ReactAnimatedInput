@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import styled from "styled-components"
+import styled, {keyframes} from "styled-components"
 import PropTypes from "prop-types"
 
 class AnimatedInput extends Component {
@@ -37,9 +37,12 @@ class AnimatedInput extends Component {
             onBlur={this.DisableField}
            focusedColor={this.props.activeBorderColor}
           />
-          <PlaceHolder className={!this.state.fieldActivated? "" : "focused"} role="label" htmlFor="main-text-input">
+          <PlaceHolder className={!this.state.fieldActivated? "" : "focused"} role="label" >
            {this.props.placeholderName}
           </PlaceHolder>
+          <ErrorMessage className={this.props.errorMessage===""? "hidden" : "show"} style={{pointerEvents:this.props.errorMessage===""? `none`:`default`,}}>
+           {this.props.errorMessage===""? this.props.placeholderName : this.props.errorMessage}
+          </ErrorMessage>
         </Wrapper>
       )
     } catch (e) {
@@ -50,7 +53,42 @@ class AnimatedInput extends Component {
     }
   }
 }
+const FadeIn = keyframes`
+from{
+  transform-style: preserve-3d;
+  transform-origin: 0px 0px;
+  transform: rotateX(-90deg);
+  opacity: 0;
+}
+to{
+ 
+  transform-style: preserve-3d;
+  transform-origin: 0px 0px;
+  
+  transform:  rotateX(0deg);
+  opacity: 1;
+}
+`
 
+const ErrorMessage = styled.p`
+position:relative;
+/* Visibility is based on the content of the error message */
+&.show{
+  visibility:visible;
+  animation: ${FadeIn} 0.15s ease-out;
+}
+&.hidden{
+  visibility:hidden;
+}
+/* Font Related Properties */
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 1px;
+    color: rgb(137, 147, 164);
+    line-height: 1.3rem;
+    padding-top: 0px !important
+`
 const TextInput = styled.input`
   box-sizing: border-box;
   padding: 8px 10px;
@@ -107,10 +145,13 @@ const PlaceHolder = styled.label`
 `
 AnimatedInput.propTypes = {
 onChange: PropTypes.func,
+errorMessage: PropTypes.string,
+placeholder:PropTypes.string,
 }
 AnimatedInput.defaultProps = {
    onChange: function(){},
    placeholder:"",
+   errorMessage:"",
 }
 
 export default AnimatedInput
